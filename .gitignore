@@ -24,3 +24,4 @@ ipch/
 *.lnk
 .DS_Store
 Thumbs.db
+/VisualStudio/MidiJackPlugin/MidiJackPlugin.vcxproj.user

@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 //
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -269,6 +270,32 @@ namespace MidiJack
         [DllImport("MidiJackPlugin", EntryPoint="MidiJackDequeueIncomingData")]
         public static extern ulong DequeueIncomingData();
 
+ [DllImport("MidiJackPlugin", EntryPoint = "MidiJackSendMessage")]
+        public static extern bool SendMessage(int deviceID, uint rawMessage);
+
+        [DllImport("MidiJackPlugin", EntryPoint = "MidiJackCountOutputEndpoints")]
+        public static extern int GetNumOutputDevices();
+
+        [DllImport("MidiJackPlugin", EntryPoint = "MidiJackCountEndpoints")]
+        public static extern int GetNumDevices();
+
+        [DllImport("MidiJackPlugin", EntryPoint = "MidiJackGetOutputEndpointName")]
+        private static extern IntPtr _GetOutputEndpointName(int id);
+        public static string GetOutputEndpointName(int id)
+        {
+            IntPtr txt = _GetOutputEndpointName(id);
+            string s = Marshal.PtrToStringAnsi(txt);
+            return s;
+        }
+
+        [DllImport("MidiJackPlugin", EntryPoint = "MidiJackGetLastError")]
+        private static extern IntPtr _GetLastError();
+        public static string GetLastError()
+        {
+            IntPtr txt = _GetLastError();
+            string s = Marshal.PtrToStringAnsi(txt);
+            return s;
+        }
         #endregion
 
         #region Singleton Class Instance

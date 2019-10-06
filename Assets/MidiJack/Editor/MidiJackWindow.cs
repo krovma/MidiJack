@@ -46,7 +46,7 @@ namespace MidiJack
             for (var i = 0; i < endpointCount; i++)
             {
                 var id = GetEndpointIdAtIndex(i);
-                var name = GetEndpointName(id);
+                var name = GetEndpointName((uint)i);
                 temp += "\n" + id.ToString("X8") + ": " + name;
             }
             EditorGUILayout.HelpBox(temp, MessageType.None);
